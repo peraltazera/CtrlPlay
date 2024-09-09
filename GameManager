@@ -1,0 +1,60 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class GameManager : MonoBehaviour
+{
+    public bool jogando;
+    public GameObject painelMenu, painelFim;
+    public TMP_Text pontuacaoTxt, pontuacaoFinal;
+    public int pontuacao;
+
+    void Start()
+    {
+        // A partida começou
+        jogando = true;
+
+        // Congelando o jogo para funcionamento do painel menu
+        Time.timeScale = 0f;
+    }
+
+    void Update()
+    {
+        // Convertendo o valor da pontuação para string e
+        // atribuindo ao componente Text da cena
+        pontuacaoTxt.text = pontuacao.ToString("00");
+    }
+
+    public void Iniciar()
+    {
+        // Desabilitando o painel do menu
+        painelMenu.SetActive(false);
+
+        // Atualiza a escala de tempo para 1, fazendo
+        // o jogo rodar em sua velocidade normal
+        Time.timeScale = 1f;
+    }
+
+    public void FimDeJogo()
+    {
+        // Atualiza a booleana jogando para false para
+        // indicar a todos que o jogo não está rodando
+        jogando = false;
+
+        // Ativa o painel de Game Over para que este apareça na tela
+        painelFim.SetActive(true);
+
+        // Convertendo o valor da pontuação para string e atribuindo
+        // ao componente Text da cena
+        pontuacaoFinal.text = pontuacao.ToString("00");
+    }
+
+    public void Reiniciar()
+    {
+        // Chamada da cena 0 (cena atual)
+        SceneManager.LoadScene(0);
+    }
+}
