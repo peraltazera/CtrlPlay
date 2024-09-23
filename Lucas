@@ -1,0 +1,24 @@
+alfabeto_maiusculo = alfabeto_minusculo.upper()
+
+-----------------------------------------------
+
+def criptografar_letra(letra):
+	if letra in alfabeto_minusculo:
+		return embaralhar(letra,alfabeto_minusculo)
+	elif letra in alfabeto_maiusculo:
+		return embaralhar(letra,alfabeto_maiusculo)
+	else:
+		return letra
+		
+criptografar_letra("C")
+
+-------------------------------------
+
+def criptografar_texto(texto):
+	return "".join([criptografar_letra(letra) for letra in texto])
+	
+messagem = "Bem-vindo à Ctrl+Play!"
+
+messagem_criptografada = criptografar_texto(messagem)
+
+criptografar_texto(messagem_criptografada) 
