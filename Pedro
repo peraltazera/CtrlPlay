@@ -1,0 +1,16 @@
+ public float sensibilidadeMouse = 100f;
+ public Transform jogador;
+ private float rotacaoX = 0f;
+
+ void Start()
+ {
+     Cursor.lockState = CursorLockMode.Locked;
+ }
+
+ void Update()
+ {
+     float mouseX = Input.GetAxis("Mouse X") * sensibilidadeMouse * Time.deltaTime;
+     float mouseY = Input.GetAxis("Mouse Y") * sensibilidadeMouse * Time.deltaTime;
+     print("Mouse X = " + mouseX);
+     print("Mouse Y = " + mouseY);
+ }
