@@ -1,43 +1,50 @@
-Playerusing System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Inimigo : MonoBehaviour
 {
-    public float sensibilidadeMouse = 100f;
-    public Transform jogador;
-    float rotacaoX = 0f;
+    public GameObject inimigo;
+    public Sprite inimigoIdle;
+    public Sprite inimigoDead;
+    public SpriteRenderer alien;
+    public float timer = 0f;
+    public bool respaw;
+    public Transform player;
 
-    public CharacterController controller;
-    public float velocidade = 4.0f;
-    public float gravidade = -9.81f;
-
-    Vector3 aceleracao;
-    // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        
     }
 
-    // Update is called once per frame
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * sensibilidadeMouse * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * sensibilidadeMouse * Time.deltaTime;
+        timer += Time.deltaTime;
+        if (timer >= 0.5f && respaw)
+        {
+            respaw = false;
+            Respawn();
+        }
+        transform.LookAt(player);
+        //transform.Rotate(Vector3.right, 90);
+    }
 
-        rotacaoX -= mouseY;
-        rotacaoX = Mathf.Clamp(rotacaoX, -90f, 90f);
+    public void DestroyRespaw()
+    {
+        respaw = true;
+        timer = 0;
+        alien.sprite = inimigoDead;
+        gameObject.GetComponent<BoxCollider>().enabled = false;
+    }
 
-        transform.localRotation = Quaternion.Euler(rotacaoX, 0f, 0f);
-        jogador.Rotate(Vector3.up * mouseX);
+    public void Respawn()
+    {
+        Vector3 incremento = new Vector3(Random.Range(-8.0f, 8.0f), (float)1.5, Random.Range(-5.0f, 5.0f));
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        inimigo.transform.position = incremento;
 
-        Vector3 move = transform.right * x + transform.forward * z;
-        controller.Move(move * velocidade * Time.deltaTime);
+        alien.sprite = inimigoIdle;
 
-        aceleracao.y += gravidade * Time.deltaTime;
-        controller.Move(aceleracao * Time.deltaTime);
+        gameObject.GetComponent<BoxCollider>().enabled = true;
     }
 }
