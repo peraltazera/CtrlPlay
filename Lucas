@@ -1,24 +1,21 @@
-alfabeto_maiusculo = alfabeto_minusculo.upper()
-
------------------------------------------------
-
-def criptografar_letra(letra):
-	if letra in alfabeto_minusculo:
-		return embaralhar(letra,alfabeto_minusculo)
-	elif letra in alfabeto_maiusculo:
-		return embaralhar(letra,alfabeto_maiusculo)
-	else:
-		return letra
-		
-criptografar_letra("C")
-
--------------------------------------
-
-def criptografar_texto(texto):
-	return "".join([criptografar_letra(letra) for letra in texto])
+if keyboard_check(ord("W")){
+	speed = 5;
+	}
+	else{
+		speed = 0;
+	}
 	
-messagem = "Bem-vindo à Ctrl+Play!"
-
-messagem_criptografada = criptografar_texto(messagem)
-
-criptografar_texto(messagem_criptografada) 
+	if keyboard_check(ord("A")){
+		direction +=3;
+	}else if keyboard_check(ord("D")){
+		direction -=3;
+	}
+	image_angle = direction;
+	
+	move_wrap(true, true, 0);
+	
+if keyboard_check_pressed(vk_space){
+	var inst = instance_create_layer(x,y,"Instances", obj_tiro) ;
+	inst.direction = image_angle;
+	inst.speed = 10;
+}
