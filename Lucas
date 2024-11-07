@@ -1,27 +1,7 @@
-instance_destroy();
+sprite_index = choose(spr_asteroid_p, spr_asteroid_m, spr_asteroid_g);
 
-with(other){
-	instance_destroy();
-	score += 10;
+direction = irandom_range(0, 359);
 
+image_angle = irandom_range(0, 359);
 
-if (sprite_index == spr_asteroid_g)
-	{
-		score += 40;
-		repeat(2)
-			{
-				var new_asteroid = instance_create_layer(x,y,"Instances", obj_asteroid);
-				new_asteroid.sprite_index = spr_asteroid_m;
-			}
-	}
-else if(sprite_index == spr_asteroid_m)
-{
-		score+=15;
-	repeat(2)
-			{
-				var new_asteroid = instance_create_layer(x,y,"Instances", obj_asteroid);
-				new_asteroid.sprite_index = spr_asteroid_p;
-			}
-			
-	}
-}
+speed = 2
