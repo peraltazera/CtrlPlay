@@ -1,4 +1,27 @@
-repeat(6)
+instance_destroy();
+
+with(other){
+	instance_destroy();
+	score += 10;
+
+
+if (sprite_index == spr_asteroid_g)
+	{
+		score += 40;
+		repeat(2)
+			{
+				var new_asteroid = instance_create_layer(x,y,"Instances", obj_asteroid);
+				new_asteroid.sprite_index = spr_asteroid_m;
+			}
+	}
+else if(sprite_index == spr_asteroid_m)
 {
-	instance_create_layer(0,0,"Instances", obj_asteroid);
+		score+=15;
+	repeat(2)
+			{
+				var new_asteroid = instance_create_layer(x,y,"Instances", obj_asteroid);
+				new_asteroid.sprite_index = spr_asteroid_p;
+			}
+			
+	}
 }
