@@ -1,12 +1,1 @@
-//Maior >
-if(Saldo > 0){ console.log("Saldo é maior que 0") }
-//Menor <
-if(Saldo < 0){ console.log("Saldo é menor que 0") }
-//Igual ==
-if(Saldo == 0){ console.log("Saldo é igual a 0") }
-//Diferente !=
-if(Saldo != 0){ console.log("Saldo é diferente de 0") }
-//Maior ou Igual >=
-if(Saldo >= 0){ console.log("Saldo é maior ou igual a 0") }
-//Menor ou Igual <=
-if(Saldo <= 0){ console.log("Saldo é menor ou igual a 0") }
+Aln#1701
