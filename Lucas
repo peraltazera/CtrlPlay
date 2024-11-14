@@ -1,3 +1,14 @@
-alarm[0] = 5 * room_speed;
+if (lives <= 0){
+	instance_destroy();
+}else{
+	 lives -=1;
+}
+with (other){
+	 instance_destroy();
+	 lives -= 1;
+	 room_restart();
+	 repeat(10){
+		 instance_create_layer(x, y, "Instances", obj_particula);
+	 }
+}
 
-room_restart();
