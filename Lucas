@@ -1,10 +1,12 @@
-//Retorna o tamanho da lista
-console.log(inventario.length)
-//Coloca nossa lista em ordem alfabetica
-console.log(inventario.sort())
-//Adiciona um item ao final da lista
-inventario.push("Cama")
-console.log(inventario)
-//Remove um item ao final da lista
-inventario.pop()
-console.log(inventario)
+//Maior >
+if(Saldo > 0){ console.log("Saldo é maior que 0") }
+//Menor <
+if(Saldo < 0){ console.log("Saldo é menor que 0") }
+//Igual ==
+if(Saldo == 0){ console.log("Saldo é igual a 0") }
+//Diferente !=
+if(Saldo != 0){ console.log("Saldo é diferente de 0") }
+//Maior ou Igual >=
+if(Saldo >= 0){ console.log("Saldo é maior ou igual a 0") }
+//Menor ou Igual <=
+if(Saldo <= 0){ console.log("Saldo é menor ou igual a 0") }
