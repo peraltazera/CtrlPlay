@@ -1,36 +1,16 @@
+ public GameObject coletavelPrefab;
+ private Collider regiao;
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="script.js"></script>   
-</head>
-<body>
-    <h1>O Professor Victor é muito legal?</h1>
-    <button id="btnSim" onclick="BtnSim()">Sim</button>
-    <button id="btnNao" onclick="BtnNao()" onmouseover="moverBtn(this)">Não</button>
-</body>
-</html>
+ private void Awake()
+ {
+     regiao = GetComponent<Collider>();
+ }
 
--------------------------------------------------------
-
-function moverBtn(button){
-    var btn = button
-    btn.style.position = "absolute"
-    btn.style.bottom = posicaoAleatoria(10,90)
-    btn.style.left = posicaoAleatoria(10,90)
-}
-
-function posicaoAleatoria(min, max){
-    return Math.random() * (max - min) + "%"
-}
-
-function BtnSim(){
-    alert("Obrigado pelo elogio!")
-}
-
-function BtnNao(){
-    alert("Impossivel!")
-}
+ public void Spawn()
+ {
+     Vector3 posicao = new Vector3();
+     posicao.x = Random.Range(regiao.bounds.min.x, regiao.bounds.max.x);
+     posicao.z = Random.Range(regiao.bounds.min.z, regiao.bounds.max.z);
+     posicao.y = 1f;
+     Instantiate(coletavelPrefab, posicao, Quaternion.identity);
+ }
