@@ -1,16 +1,21 @@
- public GameObject coletavelPrefab;
- private Collider regiao;
+public GameObject coletavelPrefab;
+private Collider regiao;
 
- private void Awake()
- {
-     regiao = GetComponent<Collider>();
- }
+private void Awake()
+{
+    regiao = GetComponent<Collider>();
+}
 
- public void Spawn()
- {
-     Vector3 posicao = new Vector3();
-     posicao.x = Random.Range(regiao.bounds.min.x, regiao.bounds.max.x);
-     posicao.z = Random.Range(regiao.bounds.min.z, regiao.bounds.max.z);
-     posicao.y = 1f;
-     Instantiate(coletavelPrefab, posicao, Quaternion.identity);
- }
+public void Start()
+{
+    Spawn();
+}
+
+public void Spawn()
+{
+    Vector3 posicao = new Vector3();
+    posicao.x = Random.Range(regiao.bounds.min.x, regiao.bounds.max.x);
+    posicao.z = Random.Range(regiao.bounds.min.z, regiao.bounds.max.z);
+    posicao.y = 1f;
+    Instantiate(coletavelPrefab, posicao, Quaternion.identity);
+}
