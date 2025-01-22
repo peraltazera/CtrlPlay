@@ -1,26 +1,18 @@
-extends Area
+-- Obtenha a referência do bloco
+local block = script.Parent
 
-var direcao = Vector3.ZERO
+-- Função que será chamada quando algo encostar no bloco
+local function onTouch(otherPart)
+    -- Verifique se a parte que tocou é um personagem
+    local character = otherPart.Parent
+    -- Verifique se o personagem tem um humanoide (para confirmar que é um jogador)
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
 
-func _physics_process(_delta):
-	movimentacao()
-	
-func movimentacao():
-	direcao = Vector3.ZERO
-	
-	if Input.is_action_pressed("ui_up"):
-		if not $Frente.is_colliding() : direcao = Vector3.BACK
-		
-	elif Input.is_action_pressed("ui_left"):
-		if not $Esquerda.is_colliding() : direcao = Vector3.RIGHT
-			
-	elif Input.is_action_pressed("ui_right"):
-		if not $Direita.is_colliding() : direcao = Vector3.LEFT
-		
-	elif Input.is_action_pressed("ui_down"):
-		if not $Costas.is_colliding() : direcao = -Vector3.BACK
-		
-	var posicaoInicial = self.translation
-	var posicaoFinal = posicaoInicial + (direcao*2)
-	$Movimentacao.interpolate_property(self, "translation", posicaoInicial, posicaoFinal, 0.1, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
-	$Movimentacao.start()
+    -- Se for um personagem de jogador, mate o jogador
+    if humanoid then
+        humanoid.Health = 0
+    end
+end
+
+-- Conectar a função onTouch ao evento Touched do bloco
+block.Touched:Connect(onTouch)
