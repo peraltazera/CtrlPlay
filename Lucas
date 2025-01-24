@@ -1,18 +1,66 @@
--- Obtenha a referência do bloco
-local block = script.Parent
+//Depositar Dinheiro na conta
+//Sacar Dinheiro da Conta
+//Transferir Dinheiro entre Contas
 
--- Função que será chamada quando algo encostar no bloco
-local function onTouch(otherPart)
-    -- Verifique se a parte que tocou é um personagem
-    local character = otherPart.Parent
-    -- Verifique se o personagem tem um humanoide (para confirmar que é um jogador)
-    local humanoid = character:FindFirstChildOfClass("Humanoid")
+//Contas (cpf,Saldo)
 
-    -- Se for um personagem de jogador, mate o jogador
-    if humanoid then
-        humanoid.Health = 0
-    end
-end
+let contas = []
 
--- Conectar a função onTouch ao evento Touched do bloco
-block.Touched:Connect(onTouch)
+console.log(contas)
+
+function criarConta(cpfParam, saldoParam){
+   let contaExistente = contas.find(conta => conta.cpf == cpfParam)
+   if(contaExistente == null){
+       let conta = {
+           cpf: cpfParam,
+           saldo: saldoParam
+       }
+       contas.push(conta)
+   }
+}
+
+criarConta(123456789, 500)
+criarConta(45678912, 1000)
+criarConta(789456123, 5000)
+
+console.log(contas)
+
+function depositar(cpfParam, valor){
+    let contaExistente = contas.find(conta => conta.cpf == cpfParam)
+    if(contaExistente != null){
+        contaExistente.saldo += valor
+    }
+}
+
+depositar(123456789, 500)
+
+console.log(contas)
+
+function sacar(cpfParam, valor){
+    let contaExistente = contas.find(conta => conta.cpf == cpfParam)
+    if(contaExistente != null){
+        if(valor <= contaExistente.saldo){
+            contaExistente.saldo -= valor
+        }
+    }
+}
+
+sacar(123456789, 100)
+sacar(123456789, 500)
+
+console.log(contas)
+
+function transferencia(cpfRemetente, cpfDestinatario, valor){
+    let contaRemetente = contas.find(conta => conta.cpf == cpfRemetente)
+    let contaDestinatario = contas.find(conta => conta.cpf == cpfDestinatario)
+    if(contaRemetente != null && contaDestinatario != null){
+        if(valor <= contaRemetente.saldo){
+            contaRemetente.saldo -= valor
+            contaDestinatario.saldo += valor
+        }
+    }
+}
+
+transferencia(789456123, 123456789, 444)
+
+console.log(contas)
