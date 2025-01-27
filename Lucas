@@ -1,66 +1,19 @@
-//Depositar Dinheiro na conta
-//Sacar Dinheiro da Conta
-//Transferir Dinheiro entre Contas
+public float moveSpeed = 5f;
+public float directionSpeed = 180f;
+public float bodySpeed = 5f;
+public int gap = 10;
+public GameObject bodyPrefab;
+private List<GameObject> bodyParts = new List<GameObject>();
+private List<Vector3> positionsHistory = new List<Vector3>();
 
-//Contas (cpf,Saldo)
-
-let contas = []
-
-console.log(contas)
-
-function criarConta(cpfParam, saldoParam){
-   let contaExistente = contas.find(conta => conta.cpf == cpfParam)
-   if(contaExistente == null){
-       let conta = {
-           cpf: cpfParam,
-           saldo: saldoParam
-       }
-       contas.push(conta)
-   }
+void Start()
+{
+    
 }
 
-criarConta(123456789, 500)
-criarConta(45678912, 1000)
-criarConta(789456123, 5000)
-
-console.log(contas)
-
-function depositar(cpfParam, valor){
-    let contaExistente = contas.find(conta => conta.cpf == cpfParam)
-    if(contaExistente != null){
-        contaExistente.saldo += valor
-    }
+void Update()
+{
+    transform.position += transform.forward * moveSpeed * Time.deltaTime;
+    float direcionar = Input.GetAxis("Horizontal");
+    transform.Rotate(Vector3.up * direcionar * directionSpeed * Time.deltaTime);
 }
-
-depositar(123456789, 500)
-
-console.log(contas)
-
-function sacar(cpfParam, valor){
-    let contaExistente = contas.find(conta => conta.cpf == cpfParam)
-    if(contaExistente != null){
-        if(valor <= contaExistente.saldo){
-            contaExistente.saldo -= valor
-        }
-    }
-}
-
-sacar(123456789, 100)
-sacar(123456789, 500)
-
-console.log(contas)
-
-function transferencia(cpfRemetente, cpfDestinatario, valor){
-    let contaRemetente = contas.find(conta => conta.cpf == cpfRemetente)
-    let contaDestinatario = contas.find(conta => conta.cpf == cpfDestinatario)
-    if(contaRemetente != null && contaDestinatario != null){
-        if(valor <= contaRemetente.saldo){
-            contaRemetente.saldo -= valor
-            contaDestinatario.saldo += valor
-        }
-    }
-}
-
-transferencia(789456123, 123456789, 444)
-
-console.log(contas)
