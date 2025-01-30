@@ -1,30 +1,12 @@
-
-// Função para verificar se há um vencedor ou empate
-function checkWinner() {
-    let roundWon = false;
-    for (let i = 0; i < winningConditions.length; i++) {
-        const [a, b, c] = winningConditions[i];
-        if (gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
-            roundWon = true;
-            break;
-        }
-    }
-
-    if (roundWon) {
-        statusDisplay.textContent = `Jogador ${currentPlayer} venceu!`;
-        gameActive = false;
-        restartButton.style.display = 'block';  // Exibe o botão de reiniciar
-        return;
-    }
-    
-    const roundDraw = !gameState.includes("");
-    if (roundDraw) {
-        statusDisplay.textContent = 'Empate!';
-        gameActive = false;
-        restartButton.style.display = 'block';  // Exibe o botão de reiniciar
-        return;
-    }
-    
-    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-    statusDisplay.textContent = `É a vez do jogador ${currentPlayer}`;
+// Função para reiniciar o jogo
+function restartGame() {
+    gameActive = true;
+    currentPlayer = 'X';
+    gameState.fill("");
+    document.querySelectorAll('.cell').forEach(cell => cell.textContent = "");
+    statusDisplay.textContent = `Jogador ${currentPlayer} começa!`;
+    restartButton.style.display = 'none';  // Esconde o botão de reiniciar
 }
+  
+// Adicionar evento de clique no botão de reiniciar
+restartButton.addEventListener('click', restartGame);
