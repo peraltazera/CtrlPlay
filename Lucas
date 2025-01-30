@@ -1,26 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo da Velha</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <h1>Jogo da Velha</h1>
-    <div class="game-board">
-        <div class="cell" data-index="0">o</div>
-        <div class="cell" data-index="1">o</div>
-        <div class="cell" data-index="2">o</div>
-        <div class="cell" data-index="3">x</div>
-        <div class="cell" data-index="4">x</div>
-        <div class="cell" data-index="5">x</div>
-        <div class="cell" data-index="6">o</div>
-        <div class="cell" data-index="7">x</div>
-        <div class="cell" data-index="8">o</div>
-    </div>
-    <h2 class="status">Jogador X começa!</h2>
-    <button class="restart-button" style="display:none">Reiniciar o Jogo</button>
-    <script src="script.js"></script>
-</body>
-</html>
+const winningConditions = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
+
+statusDisplay.textContent = `Jogador ${currentPlayer} começa!`;
+
+// Função para gerenciar o clique em cada célula
+function handleCellClick(event) {
+    const clickedCell = event.target;
+    const clickedCellIndex = clickedCell.getAttribute('data-index');
+
+    if (gameState[clickedCellIndex] !== "" || !gameActive) {
+        return;
+    }
+
+    gameState[clickedCellIndex] = currentPlayer;
+    clickedCell.textContent = currentPlayer;
+}
