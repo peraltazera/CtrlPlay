@@ -1,58 +1,26 @@
-div {
-    border: 1px solid black;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: Arial, sans-serif;
-    background-color: rgb(183,160,254);
-    margin-top: 4em;
-    color: rgb(126, 98, 210);
-}
-
-h1 {
-    margin-bottom: 30px;
-}
-
-.game-board {
-     display: grid;
-     grid-template-columns: repeat(3, 100px);
-     grid-gap: 0px;
-     border: 4px solid rgb(152,123,240);
-     border-radius: 4px;
-     width: 308px;
-}
-
-.cell {
-    width: 100px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 4em;
-    cursor: pointer;
-    border: 4px solid rgb(152,123,240);
-}
-
-.status {
-    margin-top: 30px;
-    font-size: 1.5em;
-}
-
-.restart-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1em;
-    background-color: rgb(114, 89, 190);
-    color: rgb(183,160,254);
-    cursor: pointer;
-    border-radius: 5px;
-    border: 4px solid rgb(114, 89, 190);
-}
-
-.restart-button:hover {
-    background-color: rgb(183,160,254);
-    color: rgb(114, 89, 190);
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Velha</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Jogo da Velha</h1>
+    <div class="game-board">
+        <div class="cell" data-index="0">o</div>
+        <div class="cell" data-index="1">o</div>
+        <div class="cell" data-index="2">o</div>
+        <div class="cell" data-index="3">x</div>
+        <div class="cell" data-index="4">x</div>
+        <div class="cell" data-index="5">x</div>
+        <div class="cell" data-index="6">o</div>
+        <div class="cell" data-index="7">x</div>
+        <div class="cell" data-index="8">o</div>
+    </div>
+    <h2 class="status">Jogador X começa!</h2>
+    <button class="restart-button" style="display:none">Reiniciar o Jogo</button>
+    <script src="script.js"></script>
+</body>
+</html>
