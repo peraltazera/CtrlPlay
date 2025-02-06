@@ -1,12 +1,15 @@
-// Função para reiniciar o jogo
-function restartGame() {
-    gameActive = true;
-    currentPlayer = 'X';
-    gameState.fill("");
-    document.querySelectorAll('.cell').forEach(cell => cell.textContent = "");
-    statusDisplay.textContent = `Jogador ${currentPlayer} começa!`;
-    restartButton.style.display = 'none';  // Esconde o botão de reiniciar
-}
-  
-// Adicionar evento de clique no botão de reiniciar
-restartButton.addEventListener('click', restartGame);
+extends KinematicBody
+
+var velocidade = 3.0
+var movimentacao = Vector3.ZERO
+
+var novaFaixa = 0
+var velhaFaixa = 0
+
+func _physics_process(_delta):		
+	movimentacao = lerp(movimentacao, velocidade * Vector3.BACK, 0.05)
+	movimentacao = move_and_slide(movimentacao)
+	novaFaixa = int(translation.z)
+	if novaFaixa == velhaFaixa+2:
+		velhaFaixa = novaFaixa
+		get_parent().AdicionarFaixa()
