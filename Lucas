@@ -1,15 +1,18 @@
-extends KinematicBody
+-- Obtenha a referência do bloco
+local block = script.Parent
 
-var velocidade = 3.0
-var movimentacao = Vector3.ZERO
+-- Função que será chamada quando algo encostar no bloco
+local function onTouch(otherPart)
+    -- Verifique se a parte que tocou é um personagem
+    local character = otherPart.Parent
+    -- Verifique se o personagem tem um humanoide (para confirmar que é um jogador)
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
 
-var novaFaixa = 0
-var velhaFaixa = 0
+    -- Se for um personagem de jogador, mate o jogador
+    if humanoid then
+        humanoid.Health = 0
+    end
+end
 
-func _physics_process(_delta):		
-	movimentacao = lerp(movimentacao, velocidade * Vector3.BACK, 0.05)
-	movimentacao = move_and_slide(movimentacao)
-	novaFaixa = int(translation.z)
-	if novaFaixa == velhaFaixa+2:
-		velhaFaixa = novaFaixa
-		#get_parent().AdicionarFaixa()
+-- Conectar a função onTouch ao evento Touched do bloco
+block.Touched:Connect(onTouch)
