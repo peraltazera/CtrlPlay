@@ -1,18 +1,35 @@
--- Obtenha a referência do bloco
-local block = script.Parent
+extends Area
 
--- Função que será chamada quando algo encostar no bloco
-local function onTouch(otherPart)
-    -- Verifique se a parte que tocou é um personagem
-    local character = otherPart.Parent
-    -- Verifique se o personagem tem um humanoide (para confirmar que é um jogador)
-    local humanoid = character:FindFirstChildOfClass("Humanoid")
+var direcao = Vector3.ZERO
 
-    -- Se for um personagem de jogador, mate o jogador
-    if humanoid then
-        humanoid.Health = 0
-    end
-end
-
--- Conectar a função onTouch ao evento Touched do bloco
-block.Touched:Connect(onTouch)
+func _physics_process(_delta):
+	movimentacao()
+	
+func movimentacao():
+	direcao = Vector3.ZERO
+	var rotacaoInicial = $Malha.rotation_degrees.y
+	var rotacaoFinal = $Malha.rotation_degrees.y
+	
+	if Input.is_action_pressed("ui_up"):
+		if not $Frente.is_colliding() : direcao = Vector3.BACK
+		if rotacaoInicial != 0.0: rotacaoFinal = 0.0
+		
+	elif Input.is_action_pressed("ui_left"):
+		if not $Esquerda.is_colliding() : direcao = Vector3.RIGHT
+		if rotacaoInicial != 90: rotacaoFinal = 90
+			
+	elif Input.is_action_pressed("ui_right"):
+		if not $Direita.is_colliding() : direcao = Vector3.LEFT
+		if rotacaoInicial != -90: rotacaoFinal = -90
+		
+	elif Input.is_action_pressed("ui_down"):
+		if not $Costas.is_colliding() : direcao = -Vector3.BACK
+		if rotacaoInicial != 180: rotacaoFinal = 180	
+		
+	var posicaoInicial = self.translation
+	var posicaoFinal = posicaoInicial + (direcao*2)
+	$Movimentacao.interpolate_property(self, "translation", posicaoInicial, posicaoFinal, 0.1, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
+	$Movimentacao.start()
+	
+	$Rotacao.interpolate_property($Malha, "rotation_degrees:y", rotacaoInicial, rotacaoFinal, 0.1, Tween.TRANS_EXPO, Tween.EASE_OUT)
+	$Rotacao.start()
