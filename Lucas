@@ -1,17 +1,10 @@
-extends Spatial
-
-onready var movimentado = preload("res://Enemy.tscn")
-var velocidade := 0.0
-
-func Inicio(movimentacao:float, tempo:float)->void:
-	velocidade = movimentacao
-	$Timer.wait_time = tempo
+extends KinematicBody
 	
-func _on_Timer_timeout():
-	if get_parent().camera - 6 > self.translation.z:
-		queue_free()
-	else:
-		var movimenta = movimentado.instance()	
-		get_parent().add_child(movimenta)
-		movimenta.global_transform.origin = self.global_transform.origin
-		movimenta.Inicio(velocidade)
+var movimento = Vector3.ZERO
+
+func Inicio(tempo):
+	movimento = Vector3(tempo,0,0)
+	$Enemy.rotation_degrees.y = 0.0 if sign(tempo) == 1 else 180.0
+		
+func _physics_process(_delta):
+	movimento = move_and_slide(movimento)
