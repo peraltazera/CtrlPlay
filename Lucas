@@ -1,37 +1,11 @@
-extends Area
+sprite_index = choose(spr_asteroid_p, spr_asteroid_m, spr_asteroid_g);  
+//define uma sprite para o asteroide  
 
-var direcao = Vector3.ZERO
+direction = irandom_range(0, 359);  
+//define uma direção aleatória para o objeto  
 
-func _physics_process(delta):
-	movimentacao()
+image_angle = irandom_range(0, 359);  
+//define um ângulo aleatório para a imagem  
 
-func movimentacao():
-	direcao = Vector3.ZERO
-	var rotacaoInicial = $Malha.rotation_degrees.y
-	var rotacaoFinal = $Malha.rotation_degrees.y
-	
-	if Input.is_action_pressed("ui_up"):
-		if not $Frente.is_colliding() : direcao = Vector3.BACK
-		if rotacaoInicial != 0.0: rotacaoFinal = 0.0
-		
-	elif Input.is_action_pressed("ui_down"):
-		if not $Costas.is_colliding() : direcao = -Vector3.BACK
-		if rotacaoInicial != 180: rotacaoFinal = 180
-		
-	elif Input.is_action_pressed("ui_right"):
-		if not $Direita.is_colliding() : direcao = Vector3.LEFT
-		if rotacaoInicial != -90: rotacaoFinal = -90
-		
-	elif Input.is_action_pressed("ui_left"):
-		if not $Esquerda.is_colliding() : direcao = Vector3.RIGHT
-		if rotacaoInicial != 90: rotacaoFinal = 90	
-		
-	var posicaoInicial = self.translation
-	var posicaoFinal = posicaoInicial + (direcao*0.6)
-	$Movimentacao.interpolate_property(self, "translation", 
-		posicaoInicial, posicaoFinal, 0.1, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
-	$Movimentacao.start()
-	
-	$Rotacao.interpolate_property($Malha, "rotation_degrees:y", 
-		rotacaoInicial, rotacaoFinal, 0.1, Tween.TRANS_EXPO, Tween.EASE_OUT)
-	$Rotacao.start()
+speed = 2;  
+//define uma velocidade ao objeto  
