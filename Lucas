@@ -1,21 +1,150 @@
-if keyboard_check(ord("W")){
-    speed = 5;
-    //movimentação da nave
+//Variaveis
+
+var vida = 100
+
+console.log(vida)
+
+var numero = 20
+var nome = "Victor"
+var perdeu = false //true ou false
+
+let email = "victor@gmail.com"
+
+console.log(numero)
+numero = 50
+console.log(numero)
+
+const cpf = "123456789"
+
+//Comandos de repetição
+
+for(let i = 0; i < 5; i++){
+    console.log(i)
+}
+
+let energia = 0
+console.log("Energia " + energia)
+while(energia > 0){
+    console.log("Computador Ligado")
+    energia -= 10
+}
+console.log("Energia " + energia)
+
+let energia2 = 0
+do {
+    console.log("Computador2 Ligado")
+    energia2 -= 10
+}while(energia2 > 0)
+
+//Condicionais
+
+let idade = 20
+
+if(idade >= 18){
+    console.log("Maior de Idade")
 }else{
-    speed = 0;
-    //interrompe o movimento da nave
+    console.log("Menor de Idade")
 }
 
-if keyboard_check(ord("A")){
-    direction +=3;
-    //gira a nave no sentido anti horário
-}else if keyboard_check(ord("D")){
-    direction -=3;
-    //gira a nave no sentido horário
+let classe = "guerreiro"
+if(classe == "guerreiro"){
+    console.log("10 de Dano")
+}else if(classe == "mago"){
+    console.log("20 de Dano")
+}else if(classe == "bardo"){
+    console.log("40 de Dano")
+}else{
+    console.log("30 de Dano")
 }
 
-image_angle = direction;
-//faz a imagem acompanhar a rotação da nave
+//Operadores
 
-move_wrap(true, true, 0);
-//teleporta a nave quando chega na borda da cena (room)
+let numero = 0
+console.log(numero)
+
+numero = 2 + 2
+console.log(numero)
+
+numero = 5 - 6
+console.log(numero)
+
+numero = 2 * 8
+console.log(numero)
+
+numero =  4 / 2 
+console.log(numero)
+
+numero =  ((4 + 4) * 8 / (3 - 8)) * 9
+console.log(numero)
+
+numero = 10
+if(numero == 11){
+
+}
+if(numero > 11){
+    
+}
+if(numero < 11){
+    
+}
+if(numero >= 11){
+    
+}
+if(numero <= 11){
+    
+}
+if(numero > 11 || numero < 1){
+    
+}
+let numero2 = 14
+if(numero > 11 && numero2 < 13){
+
+}
+if(numero < 11){
+    
+}
+
+let ganhou = true
+if(!ganhou){
+
+}
+
+//Funções
+
+let contaBancaria = 122
+let sucoDeLaranja = 10
+
+console.log(contaBancaria)
+
+function comprarProduto(valorProduto){
+    contaBancaria -= valorProduto
+    console.log(contaBancaria)
+}
+
+comprarProduto(sucoDeLaranja)
+
+function dizerOi(){
+    console.log("oi")
+}
+
+dizerOi()
+dizerOi()
+dizerOi()
+
+function somar(numero1, numero2, numero3){
+    console.log(numero1 + numero2 + numero3)
+}
+
+somar(10, 11, 12)
+somar(11, 10, 12)
+
+function criarPersonagem(nome, raça, classe){
+    console.log("Nome = " + nome)
+    console.log("Raça = " + raça)
+    console.log("Classe = " + classe)
+}
+
+criarPersonagem("Peralta", "Anão", "Barbaro")
+criarPersonagem("Anão", "Barbaro", "Peralta")
+
+
