@@ -1,97 +1,15 @@
-extends Spatial
+onready var movimentado = preload("res://Inimigo.tscn")
+var velocidade := 0.0
 
-enum {nada = -1, areia = 1, pista = 2, rua = 2}
+func Inicio(movimentacao:float, tempo:float)->void:
+	velocidade = movimentacao
+	$Timer.wait_time = tempo
 
-var novaFaixa = 40
-var velhaFaixa = -5
-
-onready var gerador = preload("res://Spawn.tscn")
-var camera = 0
-
-var amassado = false
-
-func _ready():
-	RedesenharCenario()
-
-func RedesenharCenario():
-	$Cenario.clear()
-	$Obstaculos.clear()
-	for z in range(velhaFaixa, novaFaixa+1):
-		var i
-		
-		if z <= 5:
-			i = areia
-		else:
-			var anterior = $Cenario.get_cell_item(0, 0, z-1)
-			i = ProximoDoCenario(anterior)
-		
-		if i == areia:	
-			AdicionarObstaculos(z)
-
-		if i in [rua, pista]:
-			AdicionarObstaculosMoveis(z)
-		
-		for x in range(-1, 1):
-			$Cenario.set_cell_item(x, 0, z, i)
-	
-func ProximoDoCenario(anterior):
-	var i
-		
-	match anterior:
-		areia:
-			i = SortearCenario([areia, pista, rua])
-		rua:
-			i = areia
-		pista:
-			i = SortearCenario([pista, rua])
-		nada:
-			i = areia
-
-	return i
-
-func SortearCenario(lista):
-	randomize()
-	return lista[randi()%lista.size()]
-	
-func AdicionarFaixa():
-	var anterior = $Cenario.get_cell_item(0, 0, novaFaixa)
-	var i = ProximoDoCenario(anterior)
-	novaFaixa+=1	
-
-	if i == areia:
-		AdicionarObstaculos(novaFaixa)
-
-	if i in [rua, pista]:
-		AdicionarObstaculosMoveis(novaFaixa)
-#
-	for x in range(-1, 1):
-		$Cenario.set_cell_item(x, 0, novaFaixa, i)
-
-func AdicionarObstaculos(linha):
-	$Obstaculos.set_cell_item(-8, 0, linha, randi()%5)
-	$Obstaculos.set_cell_item(7, 0, linha, randi()%5)
-	
-	for x in range(-7, 7):
-		if randi()%10 < 5:
-			$Obstaculos.set_cell_item(x, 0, linha, randi()%5)
-			
-func DeletarFaixa():
-	for x in range(-1, 1):
-		$Cenario.set_cell_item(x, 0, velhaFaixa, -1)
-	
-	for x in range(-8, 8):
-		if $Obstaculos.get_cell_item(x, 0, velhaFaixa) != -1:
-			$Obstaculos.set_cell_item(x, 0, velhaFaixa, -1)
-			yield(get_tree(), "idle_frame")				
-	velhaFaixa+=1
-	
-func AdicionarObstaculosMoveis(linha):
-	var lado = SortearCenario([-1, 1])
-	var tempo = rand_range(2.0, 5.0)
-	var velocidade = rand_range(10.0, 15.0) * - lado
-	var gerarMovimentados = gerador.instance()
-	
-	add_child(gerarMovimentados)
-	gerarMovimentados.translation = Vector3(13 * lado, 2, (linha * 2) + 1)
-
-	gerarMovimentados.Inicio(velocidade, tempo)
+func _on_Timer_timeout():
+	if get_parent().camera - 6 > self.translation.z:
+		queue_free()
+	else:
+		var movimenta = movimentado.instance()	
+		get_parent().add_child(movimenta)
+		movimenta.global_transform.origin = self.global_transform.origin
+		movimenta.Inicio(velocidade)
