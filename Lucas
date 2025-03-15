@@ -1,3 +1,5 @@
+extends Spatial
+
 onready var movimentado = preload("res://Inimigo.tscn")
 var velocidade := 0.0
 
