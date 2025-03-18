@@ -1,17 +1,5 @@
-extends Spatial
-
-onready var movimentado = preload("res://Inimigo.tscn")
-var velocidade := 0.0
-
-func Inicio(movimentacao:float, tempo:float)->void:
-	velocidade = movimentacao
-	$Timer.wait_time = tempo
-
-func _on_Timer_timeout():
-	if get_parent().camera - 6 > self.translation.z:
-		queue_free()
-	else:
-		var movimenta = movimentado.instance()	
-		get_parent().add_child(movimenta)
-		movimenta.global_transform.origin = self.global_transform.origin
-		movimenta.Inicio(velocidade)
+if keyboard_check_pressed(vk_space){
+	var inst = instance_create_layer(x,y,"Instances", obj_tiro);
+	inst.direction = direction;
+	inst.speed = 10;
+}
