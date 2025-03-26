@@ -1,19 +1,11 @@
-instance_destroy();
-
-with (other){
+if (lives <= 0){
 	instance_destroy();
-	
-	if (sprite_index == spr_asteroid_g){
-		 repeat(2){
-			 var new_asteroid = instance_create_layer(x, y, "Instances", obj_asteroid);
-			 new_asteroid.sprite_index = spr_asteroid_m;
-		 }
-	}
-	else if (sprite_index == spr_asteroid_m){
-		 repeat(2){
-			 var new_asteroid = instance_create_layer(x, y, "Instances", obj_asteroid);
-			 new_asteroid.sprite_index = spr_asteroid_p;
-		 }
-	}
+	//destruição da nave
+}else{	 
+	lives -= 1;
+	//subtrai 1 da variável vidas
 }
-
+ with (other){
+	 instance_destroy();
+	 //destrói o asteroide
+ }
