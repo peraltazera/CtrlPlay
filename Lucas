@@ -1,9 +1,8 @@
- <!-- Templates -->
-    <template id="cardTemplate">
-        <div class="flip-card">
-            <div class="flip-card-inner">
-                <div class="flip-card-front"></div>
-                <div class="flip-card-back"><img src="images/heros/card01.jpeg"></div>
-            </div>
-        </div>
-    </template>
+
+        if(numberCards>2*this.numImgs){
+            console.error(`Error: Not enough images for ${numberCards} cards.`);
+            numberCards = 2*this.numImgs;
+        }
+        
+        this.clear();
+        this.addCard(this.cardManager.gen(1));
