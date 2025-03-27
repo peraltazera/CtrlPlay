@@ -1,11 +1,9 @@
-let menu = document.getElementById("menu")
-let select = document.getElementById("numCards")
-let start = document.getElementById("start")
-
-for (let i = 4; i <= 10; i+=2){
-    let n = i*i;
-    let op = document.createElement("option")
-    op.value=n
-    op.innerHTML=n
-    select.appendChild(op)
-}
+ <!-- Templates -->
+    <template id="cardTemplate">
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front"></div>
+                <div class="flip-card-back"><img src="images/heros/card01.jpeg"></div>
+            </div>
+        </div>
+    </template>
