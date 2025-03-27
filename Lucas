@@ -1,8 +1,6 @@
+//Factory
+function urlBuilder(number){}
 
-        if(numberCards>2*this.numImgs){
-            console.error(`Error: Not enough images for ${numberCards} cards.`);
-            numberCards = 2*this.numImgs;
-        }
-        
-        this.clear();
-        this.addCard(this.cardManager.gen(1));
+// Object instances
+let card = new CardManager(urlBuilder);
+let board = new BoardManager("board", 50, card);
