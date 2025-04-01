@@ -1,4 +1,1 @@
-   draw_set_halign(fa_center);
-	    var c = c_red;
-	    draw_text_transformed_colour(room_width / 2, room_height / 5, "GAME OVER", 3, 3, 0, c, c, c, c, 1);
-	    draw_text(room_width / 2, room_height / 5 + 150, "Aperte ENTER para Reiniciar");
+game_set_speed(60, gamespeed_fps);
