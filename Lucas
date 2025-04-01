@@ -1,6 +1,12 @@
-//Factory
-function urlBuilder(number){}
+		 var c = c_yellow;
+	    draw_set_halign(fa_center);
+	    draw_text_transformed_colour(room_width / 2, room_height / 5, "Asteroid Escape", 3, 3, 0, c, c, c, c, 1);
+		draw_text(room_width / 2, room_height / 5 + 200, @"Pontue 1.000 pontos para ganhar
 
-// Object instances
-let card = new CardManager(urlBuilder);
-let board = new BoardManager("board", 50, card);
+W: mover
+A/S: virar
+
+ESPACE: atirar
+
+>>Aperte ENTER para iniciar<<");
+		// mesmo comando usado para rm_jogo, mas com parágrafos
