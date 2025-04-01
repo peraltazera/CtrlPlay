@@ -1,12 +1,4 @@
-		 var c = c_yellow;
-	    draw_set_halign(fa_center);
-	    draw_text_transformed_colour(room_width / 2, room_height / 5, "Asteroid Escape", 3, 3, 0, c, c, c, c, 1);
-		draw_text(room_width / 2, room_height / 5 + 200, @"Pontue 1.000 pontos para ganhar
-
-W: mover
-A/S: virar
-
-ESPACE: atirar
-
->>Aperte ENTER para iniciar<<");
-		// mesmo comando usado para rm_jogo, mas com parágrafos
+   draw_set_halign(fa_center);
+	    var c = c_lime;
+	    draw_text_transformed_colour(room_width / 2, room_height / 5, "Vitória!", 3, 3, 0, c, c, c, c, 1);
+	    draw_text(room_width / 2, room_height / 5 + 150, "Aperte ENTER para Reiniciar");
