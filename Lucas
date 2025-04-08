@@ -1,28 +1,11 @@
- gen(heroNumber){
-        let template = document.getElementById("cardTemplate")
-        let clone = template.content.cloneNode(true)
+extends Camera
 
-        clone.children[0].addEventListener('click', 
-            event => this.onClick(event))
+func _ready():
+	translate_object_local(Vector3(2,2,5))
+	pass 
+	
+func _process(delta):
+	rotate_object_local(Vector3(0,0,1), 0.1)
+	pass
 
-        return clone
-    }
 
-    onClick(event){
-        this.flip(event.target)
-    }
-
-    flip(cardNode){
-        console.log("teste")
-        cardNode.children[0].classList.add("selected")
-        this.flippedCards.add(cardNode)
-    }
-
-    unFlip(cardNode){
-        cardNode.children[0].classList.remove("selected")
-    }
-
-    disable(cardNode){
-        cardNode.children[0].classList.add("matched")
-        this.unFlip(cardNode)
-    }
