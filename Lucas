@@ -1,4 +1,8 @@
- check(){
-        let flipped = document.getElementsByClassName('matched');
-        return flipped.length >= this.curNumCards;
-    }
+board.node.addEventListener('click',()=>{
+    if(board.check()){
+     setTimeout(() => {
+         menu.classList.remove('hidden');
+         board.node.classList.add('hidden');
+     }, 2000);
+    } 
+ })
