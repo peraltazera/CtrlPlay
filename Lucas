@@ -1,17 +1,12 @@
- fill(numberCards){
-        if(numberCards>2*this.numImgs){
-            console.error(`Error: Not enough images for ${numberCards} cards.`);
-            numberCards = 2*this.numImgs;
-        }
-
-        numberCards = parseInt(numberCards)
-        this.curNumCards = numberCards
-        
-        this.clear();
-
-        this.genRandomList(numberCards).forEach((number)=>{
-            this.addCard(this.cardManager.gen(number));
+ check(){
+        let urls = [...this.flippedCards].map((card)=>{
+            return card.querySelector('img').src;
         })
-        
-        this.adjustCss();
+        return urls[0] == urls[1];
+    }
+    
+    endTurn(){
+        let handler = this.check() ? (card)=>this.disable(card): this.unFlip;
+        this.flippedCards.forEach(handler);
+        this.flippedCards.clear();
     }
