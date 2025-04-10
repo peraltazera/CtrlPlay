@@ -1,12 +1,4 @@
  check(){
-        let urls = [...this.flippedCards].map((card)=>{
-            return card.querySelector('img').src;
-        })
-        return urls[0] == urls[1];
-    }
-    
-    endTurn(){
-        let handler = this.check() ? (card)=>this.disable(card): this.unFlip;
-        this.flippedCards.forEach(handler);
-        this.flippedCards.clear();
+        let flipped = document.getElementsByClassName('matched');
+        return flipped.length >= this.curNumCards;
     }
