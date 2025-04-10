@@ -1,9 +1,17 @@
-   adjustCss(){
-        let cols = Math.sqrt(this.curNumCards);
-        let size = (100/cols - 1);
-        size+='vmin';
+ fill(numberCards){
+        if(numberCards>2*this.numImgs){
+            console.error(`Error: Not enough images for ${numberCards} cards.`);
+            numberCards = 2*this.numImgs;
+        }
 
+        numberCards = parseInt(numberCards)
+        this.curNumCards = numberCards
+        
+        this.clear();
 
-        document.documentElement.style.setProperty("--numCols", cols);
-        document.documentElement.style.setProperty("--size", size); 
+        this.genRandomList(numberCards).forEach((number)=>{
+            this.addCard(this.cardManager.gen(number));
+        })
+        
+        this.adjustCss();
     }
