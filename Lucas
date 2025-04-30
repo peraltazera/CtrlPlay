@@ -1,23 +1,32 @@
-func _physics_process(delta):
-	if Input.is_action_pressed("ui_right") and Input.is_action_pressed("ui_left"):
-		vetor.x = 0
-	elif Input.is_action_pressed("ui_right"):
-		vetor.x = velocidade
-		$Malha.rotate_z(deg2rad(-velocidade_rotacao))
-	elif Input.is_action_pressed("ui_left"):
-		vetor.x = -velocidade
-		$Malha.rotate_z(deg2rad(velocidade_rotacao))
-	else:
-		vetor.x = 0
-		
-	if Input.is_action_pressed("ui_up") and Input.is_action_pressed("ui_down"):
-		vetor.z = 0
-	elif Input.is_action_pressed("ui_up"):
-		vetor.z = -velocidade
-		$Malha.rotate_x(deg2rad(-velocidade_rotacao))
-	elif Input.is_action_pressed("ui_down"):
-		vetor.z = velocidade
-		$Malha.rotate_x(deg2rad(velocidade_rotacao))
-	else:
-		vetor.z = 0
-	move_and_slide(vetor)
+local powerUpsFolder = game.ReplicatedStorage:WaitForChild("PowerUps")
+local spawnsFolder = workspace:WaitForChild("PowerUpSpawns")
+local spawnInterval = 5 -- segundos
+local maxPowerUps = 3
+
+function getRandomPowerUp()
+	local allPowerUps = powerUpsFolder:GetChildren()
+	return allPowerUps[math.random(1, #allPowerUps)]:Clone()
+end
+
+function getRandomSpawn()
+	local spawns = spawnsFolder:GetChildren()
+	return spawns[math.random(1, #spawns)]
+end
+
+while true do
+	wait(spawnInterval)
+	local current = workspace:GetChildren()
+	local count = 0
+	for _, obj in pairs(current) do
+		if obj.Name == "PowerUp" then
+			count += 1
+		end
+	end
+	if count < maxPowerUps then
+		local powerUp = getRandomPowerUp()
+		local spawnPoint = getRandomSpawn()
+		powerUp.Position = spawnPoint.Position + Vector3.new(0, 2, 0)
+		powerUp.Name = "PowerUp"
+		powerUp.Parent = workspace
+	end
+end
