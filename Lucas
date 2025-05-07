@@ -1,15 +1,2 @@
-local Players = game:GetService("Players")
-local ServStor = game:GetService("ServerStorage")
-
-local function leaderboardSetup(player)
-	local colocacao = Instance.new("Folder")
-	colocacao.Name = "leaderstats"
-	colocacao.Parent = player
-	
-	local ponto = Instance.new("IntValue")
-	ponto.Name = "Pontos"
-	ponto.Value = 0
-	ponto.Parent = colocacao
-end
-
-Players.PlayerAdded:Connect(leaderboardSetup)
+local player = Players:GetPlayerFromCharacter(sabre.Parent)
+player.leaderstats.Pontos.Value += 10
