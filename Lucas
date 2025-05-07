@@ -1,32 +1,15 @@
-local powerUpsFolder = game.ReplicatedStorage:WaitForChild("PowerUps")
-local spawnsFolder = workspace:WaitForChild("PowerUpSpawns")
-local spawnInterval = 5 -- segundos
-local maxPowerUps = 3
+local Players = game:GetService("Players")
+local ServStor = game:GetService("ServerStorage")
 
-function getRandomPowerUp()
-	local allPowerUps = powerUpsFolder:GetChildren()
-	return allPowerUps[math.random(1, #allPowerUps)]:Clone()
+local function leaderboardSetup(player)
+	local colocacao = Instance.new("Folder")
+	colocacao.Name = "leaderstats"
+	colocacao.Parent = player
+	
+	local ponto = Instance.new("IntValue")
+	ponto.Name = "Pontos"
+	ponto.Value = 0
+	ponto.Parent = colocacao
 end
 
-function getRandomSpawn()
-	local spawns = spawnsFolder:GetChildren()
-	return spawns[math.random(1, #spawns)]
-end
-
-while true do
-	wait(spawnInterval)
-	local current = workspace:GetChildren()
-	local count = 0
-	for _, obj in pairs(current) do
-		if obj.Name == "PowerUp" then
-			count += 1
-		end
-	end
-	if count < maxPowerUps then
-		local powerUp = getRandomPowerUp()
-		local spawnPoint = getRandomSpawn()
-		powerUp.Position = spawnPoint.Position + Vector3.new(0, 2, 0)
-		powerUp.Name = "PowerUp"
-		powerUp.Parent = workspace
-	end
-end
+Players.PlayerAdded:Connect(leaderboardSetup)
