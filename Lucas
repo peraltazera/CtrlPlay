@@ -1,5 +1,17 @@
- <div className="flex gap-4 flex-col md:flex-row items-center">
-         <div className="flex gap-4 items-center w-full sm:w-[80%]">
-            <input></input>
-         </div>
-    </div>
+public GameObject comida;
+private Collider regiao;
+
+void Start()
+{
+    regiao = GameObject.Find("Cria coletavel").GetComponent<BoxCollider>();
+    InvokeRepeating("Spawn", 3, 4);
+}
+
+void Spawn()
+{
+    Vector3 posicao = new Vector3();
+    posicao.x = Random.Range(regiao.bounds.min.x, regiao.bounds.max.x);
+    posicao.z = Random.Range(regiao.bounds.min.z, regiao.bounds.max.z);
+    posicao.y = 0;
+    Instantiate(comida, posicao, Quaternion.identity);
+}
