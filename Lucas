@@ -1,9 +1,23 @@
-public float moveSpeed = 5f;
-public float directionSpeed = 180f;
-public float bodySpeed = 5f;
-public int gap = 10;
+local Players = game:GetService("Players")
+local sabre = script.Parent
 
-public GameObject bodyPrefab;
+local function Golpear()
+	local str = Instance.new("StringValue")
+	str.Name = "toolanim"
+	str.Value = "Slash"
+	str.Parent = sabre
+end
 
-private List<GameObject> bodyParts = new List<GameObject>();
-private List<Vector3> positionsHistory = new List<Vector3>();
+local function notoque(outrapart)
+	local outrohumano = outrapart.Parent:FindFirstChild("Humanoid")
+	if outrohumano then
+		outrapart.Parent.Humanoid.Health -= 25
+		
+		sabre.Handle.Lamina.CanTouch = false
+		wait(1)
+		sabre.Handle.Lamina.CanTouch = true
+	end
+end
+
+sabre.Activated:Connect(Golpear)
+sabre.Handle.Lamina.Touched:Connect(notoque)
