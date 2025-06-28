@@ -1,23 +1,19 @@
-local Players = game:GetService("Players")
-local sabre = script.Parent
+  transform.position += transform.forward * moveSpeed * Time.deltaTime;
 
-local function Golpear()
-	local str = Instance.new("StringValue")
-	str.Name = "toolanim"
-	str.Value = "Slash"
-	str.Parent = sabre
-end
+  float direcionar = Input.GetAxis("Horizontal");
+  transform.Rotate(Vector3.up * direcionar * directionSpeed * Time.deltaTime);
 
-local function notoque(outrapart)
-	local outrohumano = outrapart.Parent:FindFirstChild("Humanoid")
-	if outrohumano then
-		outrapart.Parent.Humanoid.Health -= 25
-		
-		sabre.Handle.Lamina.CanTouch = false
-		wait(1)
-		sabre.Handle.Lamina.CanTouch = true
-	end
-end
+  positionsHistory.Insert(0, transform.position);
 
-sabre.Activated:Connect(Golpear)
-sabre.Handle.Lamina.Touched:Connect(notoque)
+  int index = 1;
+  foreach(var body in bodyParts)
+  {
+      Vector3 point = positionsHistory[Mathf.Clamp(index * gap, 0, positionsHistory.Count - 1)];
+
+      Vector3 moveDirection = point - body.transform.position;
+      body.transform.position += moveDirection * bodySpeed * Time.deltaTime;
+
+      body.transform.LookAt(point);
+
+      index++;
+  }
