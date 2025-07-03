@@ -1,19 +1,57 @@
-  transform.position += transform.forward * moveSpeed * Time.deltaTime;
+import React, { useState } from "react";
+import Phrase from "./Phrase";
+import axios from "axios";
 
-  float direcionar = Input.GetAxis("Horizontal");
-  transform.Rotate(Vector3.up * direcionar * directionSpeed * Time.deltaTime);
+const PhraseGenerator = () => {
+  const [phrase, setPhrase] = useState({ content: "", author: "" });
 
-  positionsHistory.Insert(0, transform.position);
+  const [loading, setLoading] = useState(false);
 
-  int index = 1;
-  foreach(var body in bodyParts)
-  {
-      Vector3 point = positionsHistory[Mathf.Clamp(index * gap, 0, positionsHistory.Count - 1)];
+  const [error, setError] = useState(null);
 
-      Vector3 moveDirection = point - body.transform.position;
-      body.transform.position += moveDirection * bodySpeed * Time.deltaTime;
 
-      body.transform.LookAt(point);
+  const getRandomPhrase = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get("https://api.quotable.io/random");
+      const data = response.data;
+      setPhrase({
+        content: data.content,
+        author: data.author,
+      });
+    } catch (error) {
+      setError("Erro ao buscar a frase");
+      console.error("Erro ao buscar a frase:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-      index++;
+  if (loading) {
+    return (
+      <div className="min-h-20">
+        <p className="text-lg">Loading...</p>
+      </div>
+    );
   }
+
+  if (error) {
+    <div className="min-h-20">
+      <p className="text-lg">{error}</p>
+    </div>;
+  }
+
+  return (
+    <div className="min-h-20 flex flex-col gap-4 items-start">
+      <Phrase text={phrase.content} author={phrase.author} />
+      <button
+        className="bg-gradient-to-r from-teal-500 to-sky-500 p-2 rounded-lg shadow-md text-white"
+        onClick={getRandomPhrase}
+      >
+        Nova Frase
+      </button>
+    </div>
+  );
+};
+
+export default PhraseGenerator;
