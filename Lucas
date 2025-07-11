@@ -1,20 +1,9 @@
-local blocoFantasma = script.Parent
+local sphere = script.Parent
 
-function Desaparece(part)
+local angle = 0
 
-	if part.Parent:FindFirstChild("Humanoid") then
-		for transparencia = 0, 1, 0.1 do
-			blocoFantasma.Transparency = transparencia
-			wait(0.1)
-		end
-		blocoFantasma.CanCollide = false
-		wait(0.5)
-		for transparencia = 1, 0, -0.1 do
-			blocoFantasma.Transparency = transparencia
-			wait(0.1)
-		end
-		blocoFantasma.CanCollide = true
-	end
-end
-
-blocoFantasma.Touched:Connect(Desaparece)
+repeat
+	sphere.Rotation = Vector3.new(0, angle, 0)
+	wait(0.01)
+	angle = angle + 10
+until pigs == 1
