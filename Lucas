@@ -1,9 +1,12 @@
-local sphere = script.Parent
+local block = script.Parent
 
-local angle = 0
+local function onTouch(otherPart)
+	local character = otherPart.Parent
+	local humanoid = character:FindFirstChildOfClass("Humanoid")
 
-repeat
-	sphere.Rotation = Vector3.new(0, angle, 0)
-	wait(0.01)
-	angle = angle + 10
-until pigs == 1
+	if humanoid then
+		humanoid.Health = 0
+	end
+end
+
+block.Touched:Connect(onTouch)
