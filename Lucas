@@ -1,11 +1,22 @@
 local block = script.Parent
 
+local launchForce = Vector3.new(50, 50, 50)
+
 local function onTouch(otherPart)
 	local character = otherPart.Parent
 	local humanoid = character:FindFirstChildOfClass("Humanoid")
 
 	if humanoid then
-		humanoid.Health = 0
+		local rootPart = character:FindFirstChild("HumanoidRootPart")
+		if rootPart then
+			local bodyVelocity = Instance.new("BodyVelocity")
+			bodyVelocity.Velocity = launchForce
+			bodyVelocity.P = 1250
+			bodyVelocity.MaxForce = Vector3.new(200000, 200000, 200000)
+			bodyVelocity.Parent = rootPart
+
+			game:GetService("Debris"):AddItem(bodyVelocity, 0.5)
+		end
 	end
 end
 
@@ -17,6 +28,6 @@ local angle = 0
 
 repeat
 	sphere.Rotation = Vector3.new(0, angle, 0)
-	wait(0.01)
+	wait(0.05)
 	angle = angle + 10
 until pigs == 1
