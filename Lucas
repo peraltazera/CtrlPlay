@@ -10,3 +10,13 @@ local function onTouch(otherPart)
 end
 
 block.Touched:Connect(onTouch)
+
+local sphere = script.Parent
+
+local angle = 0
+
+repeat
+	sphere.Rotation = Vector3.new(0, angle, 0)
+	wait(0.01)
+	angle = angle + 10
+until pigs == 1
