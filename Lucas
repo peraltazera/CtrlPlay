@@ -1,33 +1,19 @@
-local block = script.Parent
+local blocoFantasma = script.Parent
 
-local launchForce = Vector3.new(50, 50, 50)
-
-local function onTouch(otherPart)
-	local character = otherPart.Parent
-	local humanoid = character:FindFirstChildOfClass("Humanoid")
-
-	if humanoid then
-		local rootPart = character:FindFirstChild("HumanoidRootPart")
-		if rootPart then
-			local bodyVelocity = Instance.new("BodyVelocity")
-			bodyVelocity.Velocity = launchForce
-			bodyVelocity.P = 1250
-			bodyVelocity.MaxForce = Vector3.new(200000, 200000, 200000)
-			bodyVelocity.Parent = rootPart
-
-			game:GetService("Debris"):AddItem(bodyVelocity, 0.5)
+function Desaparece(part)
+	if part.Parent:FindFirstChild("Humanoid") then
+		for transparencia = 0, 1, 0.1 do
+			blocoFantasma.Transparency = transparencia
+			wait(0.1)
 		end
+		blocoFantasma.CanCollide = false
+		wait(0.5)
+		for transparencia = 1, 0, -0.1 do
+			blocoFantasma.Transparency = transparencia
+			wait(0.1)
+		end
+		blocoFantasma.CanCollide = true
 	end
 end
 
-block.Touched:Connect(onTouch)
-
-local sphere = script.Parent
-
-local angle = 0
-
-repeat
-	sphere.Rotation = Vector3.new(0, angle, 0)
-	wait(0.05)
-	angle = angle + 10
-until pigs == 1
+blocoFantasma.Touched:Connect(Desaparece)
