@@ -1,19 +1,22 @@
-local blocoFantasma = script.Parent
+local block = script.Parent
 
-function Desaparece(part)
-	if part.Parent:FindFirstChild("Humanoid") then
-		for transparencia = 0, 1, 0.1 do
-			blocoFantasma.Transparency = transparencia
-			wait(0.1)
+local startPosition = block.Position
+
+local moveDistance = 20
+local speed = 0.5
+
+local function moveBlock()
+	while true do
+		for i = 0, moveDistance, speed do
+			block.Position = startPosition + Vector3.new(0, 0, i)
+			wait(0.01)
 		end
-		blocoFantasma.CanCollide = false
-		wait(0.5)
-		for transparencia = 1, 0, -0.1 do
-			blocoFantasma.Transparency = transparencia
-			wait(0.1)
+
+		for i = moveDistance, 0, -speed do
+			block.Position = startPosition + Vector3.new(0, 0, i)
+			wait(0.01)
 		end
-		blocoFantasma.CanCollide = true
 	end
 end
 
-blocoFantasma.Touched:Connect(Desaparece)
+moveBlock()
