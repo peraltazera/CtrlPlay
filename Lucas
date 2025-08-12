@@ -1,6 +1,3 @@
-if (place_meeting(x, y + 1, objChao)) {
-    no_chao = true;
-    vel_y = 0;
-} else {
-    no_chao = false;
+if (no_chao && keyboard_pressed(vk_space)) {
+    vel_y = forca_pulo;
 }
