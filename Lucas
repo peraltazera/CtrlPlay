@@ -1,18 +1,5 @@
-local caixa = script.Parent
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local carroModel = ReplicatedStorage:WaitForChild("Car")
-local debounce = false
+npx create-react-app meu-primeiro-projeto-react
 
-function Carro(hit)
-	local player = game.Players:GetPlayerFromCharacter(hit.Parent)
-	if player and not debounce then
-		debounce = true
-		local novoCarro = carroModel:Clone()
-		novoCarro:SetPrimaryPartCFrame(CFrame.new(Vector3.new(0, 5, 0))) -- ajuste a posição
-		novoCarro.Parent = game.Workspace
-		wait(2)
-		debounce = false
-	end
-end
+cd meu-primeiro-projeto-react
 
-caixa.Touched:Connect(Carro)
+npm install
