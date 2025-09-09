@@ -1,39 +1,15 @@
-extends Area
+extends KinematicBody
 
-var direcao = Vector3.ZERO
+var velocidade = 3
+var movimantacao = Vector3.ZERO
 
-func _ready():
-	pass
+var novaFaixa = 0
+var velhaFaixa = 0
 
 func _physics_process(delta):
-	movimentacao()
-
-func movimentacao():
-	direcao = Vector3.ZERO
-	
-	var rotacaoInicial = $Malha.rotation_degrees.y
-	var rotacaoFinial = $Malha.rotation_degrees.y
-	
-	if Input.is_action_pressed("ui_up"):
-		if not $Frente.is_colliding() : direcao = Vector3.BACK
-		if rotacaoInicial != 0.0: rotacaoFinial = 0.0
-		
-	if Input.is_action_pressed("ui_down"):
-		if not $Costas.is_colliding() : direcao = -Vector3.BACK
-		if rotacaoInicial != 180: rotacaoFinial = 180
-		
-	if Input.is_action_pressed("ui_right"):
-		if not $Direita.is_colliding() : direcao = Vector3.LEFT
-		if rotacaoInicial != -90: rotacaoFinial = -90
-		
-	if Input.is_action_pressed("ui_left"):
-		if not $Esquerda.is_colliding() : direcao = Vector3.RIGHT
-		if rotacaoInicial != 90: rotacaoFinial = 90
-	
-	var posicaoInicial = self.translation
-	var posicaoFinal =  posicaoInicial + (direcao*2)
-	$Movimentacao.interpolate_property(self, "translation", posicaoInicial, posicaoFinal, 0.1, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
-	$Movimentacao.start()
-	
-	$Rotacao.interpolate_property($Malha, "rotation_degrees:y", rotacaoInicial, rotacaoFinial, 0.1, Tween.TRANS_EXPO, Tween.EASE_OUT)
-	$Rotacao.start()
+	movimantacao = lerp(movimantacao, velocidade * Vector3.BACK, 0.05) 
+	movimantacao = move_and_slide(movimantacao)
+	novaFaixa = int(translation.z)
+	if novaFaixa == velhaFaixa+2:
+		velhaFaixa = novaFaixa
+		#get_parent().AdicionarFaixa()
