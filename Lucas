@@ -1,130 +1,39 @@
-import { useState } from "react";
-import { evaluate } from "mathjs";
+extends Area
 
-export default function Calculadora () {
-  const [input, setInput] = useState("");
-  const [result, setResult] = useState("");
+var direcao = Vector3.ZERO
 
-  return (
-    <div className="grid shadow-md w-[360px] text-2xl font-bold">
-      <div className="bg-[#3b3b3b] text-white min-h-[180px] grow flex flex-col justify-end items-end p-8 gap-4">
-        <span className="flex w-fit justify-self-end text-xl">{input}</span>
-        <div className="flex justify-between w-full items-center text-5xl">
-          <span>=</span>
-          <span className="flex h-fit">{result}</span>
-        </div>
-      </div>
-      <div className="bg-white grow h-[480px] grid grid-cols-4">
-        <button
-          className="justify-center items-center hover:opacity-75 transition ease-in-out duration-300 hover:text-[#55c9ff] bg-[#3b3b3b]"
-          onClick={() => {return}}
-        >
-          C
-        </button>
-        <button
-          className="justify-center items-center hover:opacity-75 transition ease-in-out duration-300 hover:text-[#55c9ff] bg-[#3b3b3b] text-[#D4A373]"
-          onClick={() => {return}}
-        >
-          +
-        </button>
+func _ready():
+	pass
 
-        <button
-          className="justify-center items-center hover:opacity-75 transition ease-in-out duration-300 hover:text-[#55c9ff] bg-[#3b3b3b] text-[#D4A373]"
-          onClick={() => {return}}
-        >
-          -
-        </button>
+func _physics_process(delta):
+	movimentacao()
 
-        <div className="justify-center items-center bg-[#696969]" />
-
-        <button
-          className="justify-center items-center hover:opacity-75 transition ease-in-out duration-300 hover:text-[#55c9ff]"
-          onClick={() => {return}}
-        >
-          7
-        </button>
-        <button
-          className="justify-center items-center hover:opacity-75 transition ease-in-out duration-300 hover:text-[#55c9ff]"
-          onClick={() => {return}}
-        >
-          8
-        </button>
-        <button
-          className="justify-center items-center hover:opacity-75 transition ease-in-out duration-300 hover:text-[#55c9ff]"
-          onClick={() => {return}}
-        >
-          9
-        </button>
-
-        <div className="justify-center items-center bg-[#696969]" />
-
-        <button
-          className="justify-center items-center hover:opacity-75 transition ease-in-out duration-300 hover:text-[#55c9ff]"
-          onClick={() => {return}}
-        >
-          4
-        </button>
-        <button
-          className="justify-center items-center hover:opacity-75 transition ease-in-out duration-300 hover:text-[#55c9ff]"
-          onClick={() => {return}}
-        >
-          5
-        </button>
-        <button
-          className="justify-center items-center hover:opacity-75 transition ease-in-out duration-300 hover:text-[#55c9ff]"
-          onClick={() => {return}}
-        >
-          6
-        </button>
-
-        <div className="justify-center items-center bg-[#696969]" />
-
-        <button
-          className="justify-center items-center hover:opacity-75 transition ease-in-out duration-300 hover:text-[#55c9ff]"
-          onClick={() => {return}}
-        >
-          1
-        </button>
-        <button
-          className="justify-center items-center hover:opacity-75 transition ease-in-out duration-300 hover:text-[#55c9ff]"
-          onClick={() => {return}}
-        >
-          2
-        </button>
-        <button
-          className="justify-center items-center hover:opacity-75 transition ease-in-out duration-300 hover:text-[#55c9ff]"
-          onClick={() => {return}}
-        >
-          3
-        </button>
-
-        <div className="justify-center items-center bg-[#696969]" />
-
-        <button
-          className="justify-center items-center hover:opacity-75 transition ease-in-out duration-300 hover:text-[#55c9ff]"
-          onClick={() => {return}}
-        >
-          .
-        </button>
-        <button
-          className="justify-center items-center hover:opacity-75 transition ease-in-out duration-300 hover:text-[#55c9ff]"
-          onClick={() => {return}}
-        >
-          0
-        </button>
-        <button
-          className="justify-center items-center hover:opacity-75 transition ease-in-out duration-300 hover:text-[#55c9ff] text-sm"
-          onClick={() => {return}}
-        >
-          DEL
-        </button>
-        <button
-          className="justify-center items-center hover:opacity-75 transition ease-in-out duration-300 hover:text-[#55c9ff] bg-[#3b3b3b]"
-          onClick={() => {return}}
-        >
-          =
-        </button>
-      </div>
-    </div>
-  );
-}
+func movimentacao():
+	direcao = Vector3.ZERO
+	
+	var rotacaoInicial = $Malha.rotation_degrees.y
+	var rotacaoFinial = $Malha.rotation_degrees.y
+	
+	if Input.is_action_pressed("ui_up"):
+		if not $Frente.is_colliding() : direcao = Vector3.BACK
+		if rotacaoInicial != 0.0: rotacaoFinial = 0.0
+		
+	if Input.is_action_pressed("ui_down"):
+		if not $Costas.is_colliding() : direcao = -Vector3.BACK
+		if rotacaoInicial != 180: rotacaoFinial = 180
+		
+	if Input.is_action_pressed("ui_right"):
+		if not $Direita.is_colliding() : direcao = Vector3.LEFT
+		if rotacaoInicial != -90: rotacaoFinial = -90
+		
+	if Input.is_action_pressed("ui_left"):
+		if not $Esquerda.is_colliding() : direcao = Vector3.RIGHT
+		if rotacaoInicial != 90: rotacaoFinial = 90
+	
+	var posicaoInicial = self.translation
+	var posicaoFinal =  posicaoInicial + (direcao*2)
+	$Movimentacao.interpolate_property(self, "translation", posicaoInicial, posicaoFinal, 0.1, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
+	$Movimentacao.start()
+	
+	$Rotacao.interpolate_property($Malha, "rotation_degrees:y", rotacaoInicial, rotacaoFinial, 0.1, Tween.TRANS_EXPO, Tween.EASE_OUT)
+	$Rotacao.start()
