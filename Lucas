@@ -1,15 +1,19 @@
-extends KinematicBody
+def soma(a, b):
+    return a + b
 
-var velocidade = 3
-var movimantacao = Vector3.ZERO
+def subtrai(a, b):
+    return a - b
 
-var novaFaixa = 0
-var velhaFaixa = 0
+def multiplica(a, b):
+    return a * b
 
-func _physics_process(delta):
-	movimantacao = lerp(movimantacao, velocidade * Vector3.BACK, 0.05) 
-	movimantacao = move_and_slide(movimantacao)
-	novaFaixa = int(translation.z)
-	if novaFaixa == velhaFaixa+2:
-		velhaFaixa = novaFaixa
-		#get_parent().AdicionarFaixa()
+def divide(a, b):
+    if b == 0:
+        raise ValueError("Não é possível dividir por zero")
+    return a / b
+    
+def VerificarNumeroMaior(a, b):
+    if a > b:
+        return True
+    else:
+        return False
