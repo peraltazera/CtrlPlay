@@ -1,18 +1,24 @@
-function AddQuest(){
-    return(
-        <div className="flex gap-4 w-full justify-center items-center">
-            <input
-                placeholder="quest"
-                className="rounded-full bg-secundary pl-2 input-sm flex w-[70%] focus:outline-none"
-            />
-            <button
-                className="flex items-center text-center rounded-full bg-primary h-fit px-2 text-lg transform ease-out duration-300"
-                onClick={() => {return}}
-            >
-                +
-            </button>
-        </div>
-    )
-}
+extends Spatial
 
-export default AddQuest
+enum {nada = -1, pacifico = 1, pista = 0, rua = 0}
+
+var novaFaixa = 40
+var velhaFaixa = -5
+
+func _ready():
+	RedesenharCenario() 
+	
+func RedesenharCenario():
+	$Cenario.clear()
+	for z in range(velhaFaixa, novaFaixa):
+		var i
+		
+		if z <= 5:
+			i = pacifico
+		else:
+			var anterior = $Cenario.get_cell_item(0,0,z-1)
+			i = pista
+			#i = ProximoCenario(anterior)
+		
+		for x in range(-1,1):
+			$Cenario.set_cell_item(x,0,z,i)
