@@ -1,1 +1,1 @@
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+npm install react-scripts --save
