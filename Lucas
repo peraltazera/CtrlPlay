@@ -1,18 +1,1 @@
-import requests as r
-from bs4 import BeautifulSoup
-
-url = "https://www.vlr.gg/"
-try:
-    resultado = r.get(url)
-except:
-    print("Erro ao tentar acessar o site!")
-else:
-    text = BeautifulSoup(resultado.text, "html.parser")
-
-divs = text.find_all("div", class_="h-match-team-name")
-
-for div in divs:
-    #print(div)
-    print(div.get_text(strip=True))
-#a = soup.find("a")
-#print(a)
+wf-module-item mod-match mod-color mod-bg-after-striped_redyellow mod-first
