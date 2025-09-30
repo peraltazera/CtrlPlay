@@ -1,6 +1,6 @@
 extends Spatial
 
-enum {nada = -1, pacifico = 1, pista = 0, rua = 0}
+enum {nada = -1, ChaoObstaculos = 1, ChaoInimigo = 0}
 
 var novaFaixa = 40
 var velhaFaixa = -5
@@ -14,10 +14,14 @@ func RedesenharCenario():
 		var i
 		
 		if z <= 5:
-			i = pacifico
+			i = ChaoObstaculos
 		else:
 			var anterior = $Cenario.get_cell_item(0,0,z-1)
 			i = ProximoCenario(anterior)
+			
+		if z > 0:
+			if i == ChaoObstaculos:
+				AdicionarObstaculos(z)
 		
 		for x in range(-1,1):
 			$Cenario.set_cell_item(x,0,z,i)
@@ -26,18 +30,38 @@ func ProximoCenario(anterior):
 	var i
 		
 	match anterior:
-		pacifico:
-			i = SortearCenario([pacifico, pista, rua])
-		rua:
-			i = pacifico
-		pista:
-			i = SortearCenario([pista, rua])
+		ChaoObstaculos:
+			i = SortearCenario([ChaoInimigo, ChaoObstaculos])
+		ChaoInimigo:
+			i = SortearCenario([ChaoInimigo, ChaoObstaculos, ChaoObstaculos, ChaoObstaculos, ChaoObstaculos])
 		nada:
-			i = pacifico
+			i = ChaoObstaculos
 
 	return i
 	
 func SortearCenario(lista):
 	randomize()
 	return lista[randi()%lista.size()]
+	
+func AdicionarFaixa():
+	var anterior = $Cenario.get_cell_item(0,0,novaFaixa)
+	var i = ProximoCenario(anterior)
+	novaFaixa+=1
+	
+	if i == ChaoObstaculos:
+		AdicionarObstaculos(novaFaixa)
+	
+	for x in range(-1,1):
+		$Cenario.set_cell_item(x,0,novaFaixa,i)
+		
+func AdicionarObstaculos(faixa):
+	$Obstaculos.set_cell_item(-8,0,faixa, randi()%5)
+	$Obstaculos.set_cell_item(7,0,faixa, randi()%5)
+	
+	for x in range(-7,7):
+		if randi()%10 < 5:
+			$Obstaculos.set_cell_item(x,0,faixa, randi()%5)
 			
+
+
+
