@@ -1,1 +1,43 @@
-wf-module-item mod-match mod-color mod-bg-after-striped_redyellow mod-first
+extends Spatial
+
+enum {nada = -1, pacifico = 1, pista = 0, rua = 0}
+
+var novaFaixa = 40
+var velhaFaixa = -5
+
+func _ready():
+	RedesenharCenario() 
+	
+func RedesenharCenario():
+	$Cenario.clear()
+	for z in range(velhaFaixa, novaFaixa):
+		var i
+		
+		if z <= 5:
+			i = pacifico
+		else:
+			var anterior = $Cenario.get_cell_item(0,0,z-1)
+			i = ProximoCenario(anterior)
+		
+		for x in range(-1,1):
+			$Cenario.set_cell_item(x,0,z,i)
+			
+func ProximoCenario(anterior):
+	var i
+		
+	match anterior:
+		pacifico:
+			i = SortearCenario([pacifico, pista, rua])
+		rua:
+			i = pacifico
+		pista:
+			i = SortearCenario([pista, rua])
+		nada:
+			i = pacifico
+
+	return i
+	
+func SortearCenario(lista):
+	randomize()
+	return lista[randi()%lista.size()]
+			
