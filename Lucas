@@ -1,67 +1,43 @@
-extends Spatial
+extends Area
 
-enum {nada = -1, ChaoObstaculos = 1, ChaoInimigo = 0}
-
-var novaFaixa = 40
-var velhaFaixa = -5
+var direcao = Vector3.ZERO
 
 func _ready():
-	RedesenharCenario() 
-	
-func RedesenharCenario():
-	$Cenario.clear()
-	for z in range(velhaFaixa, novaFaixa):
-		var i
-		
-		if z <= 5:
-			i = ChaoObstaculos
-		else:
-			var anterior = $Cenario.get_cell_item(0,0,z-1)
-			i = ProximoCenario(anterior)
-			
-		if z > 0:
-			if i == ChaoObstaculos:
-				AdicionarObstaculos(z)
-		
-		for x in range(-1,1):
-			$Cenario.set_cell_item(x,0,z,i)
-			
-func ProximoCenario(anterior):
-	var i
-		
-	match anterior:
-		ChaoObstaculos:
-			i = SortearCenario([ChaoInimigo, ChaoObstaculos])
-		ChaoInimigo:
-			i = SortearCenario([ChaoInimigo, ChaoObstaculos, ChaoObstaculos, ChaoObstaculos, ChaoObstaculos])
-		nada:
-			i = ChaoObstaculos
+	pass
 
-	return i
+func _physics_process(delta):
+	movimentacao()
+
+func movimentacao():
+	direcao = Vector3.ZERO
 	
-func SortearCenario(lista):
-	randomize()
-	return lista[randi()%lista.size()]
+	var rotacaoInicial = $Malha.rotation_degrees.y
+	var rotacaoFinial = $Malha.rotation_degrees.y
 	
-func AdicionarFaixa():
-	var anterior = $Cenario.get_cell_item(0,0,novaFaixa)
-	var i = ProximoCenario(anterior)
-	novaFaixa+=1
-	
-	if i == ChaoObstaculos:
-		AdicionarObstaculos(novaFaixa)
-	
-	for x in range(-1,1):
-		$Cenario.set_cell_item(x,0,novaFaixa,i)
+	if Input.is_action_pressed("ui_up"):
+		if not $Frente.is_colliding() : direcao = Vector3.BACK
+		if rotacaoInicial != 0.0: rotacaoFinial = 0.0
 		
-func AdicionarObstaculos(faixa):
-	$Obstaculos.set_cell_item(-8,0,faixa, randi()%5)
-	$Obstaculos.set_cell_item(7,0,faixa, randi()%5)
+	if Input.is_action_pressed("ui_down"):
+		if not $Costas.is_colliding() : direcao = -Vector3.BACK
+		if rotacaoInicial != 180: rotacaoFinial = 180
+		
+	if Input.is_action_pressed("ui_right"):
+		if not $Direita.is_colliding() : direcao = Vector3.LEFT
+		if rotacaoInicial != -90: rotacaoFinial = -90
+		
+	if Input.is_action_pressed("ui_left"):
+		if not $Esquerda.is_colliding() : direcao = Vector3.RIGHT
+		if rotacaoInicial != 90: rotacaoFinial = 90
 	
-	for x in range(-7,7):
-		if randi()%10 < 5:
-			$Obstaculos.set_cell_item(x,0,faixa, randi()%5)
-			
+	var posicaoInicial = self.translation
+	var posicaoFinal =  posicaoInicial + (direcao*2)
+	$Movimentacao.interpolate_property(self, "translation", posicaoInicial, posicaoFinal, 0.1, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
+	$Movimentacao.start()
+	
+	$Rotacao.interpolate_property($Malha, "rotation_degrees:y", rotacaoInicial, rotacaoFinial, 0.1, Tween.TRANS_EXPO, Tween.EASE_OUT)
+	$Rotacao.start()
+
 
 
 
