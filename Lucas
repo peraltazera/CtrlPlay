@@ -1,24 +1,15 @@
-import requests as r
-from bs4 import BeautifulSoup
+def saudacoes(nome):
+    import random
+    frases = ["Bom dia! Meu nome é " + nome + ". Como você está ?", 
+             "Olá!",
+             "Oi, tudo bem ?"]
+    print(frases[random.randint(0,2)])
 
-url = "https://www.vlr.gg/"
-try:
-    resultado = r.get(url)
-except:
-    print("Erro ao tentar acessar o site!")
-else:
-    soup = BeautifulSoup(resultado.text, "html.parser")
-
-div = soup.find("div", class_="wf-module wf-card mod-home-matches")
-
-links = div.find_all("a", class_=["wf-module-item", "mod-match", "mod-color"])
-
-for link in links:
-    teams = []
-    time = link.find("div", class_=["h-match-eta"]).get_text(strip=True)
-    divs = link.find_all("div", class_="h-match-team")
-    for div in divs:
-        names = link.find_all("div", class_="h-match-team-name")
-        for name in names:
-            teams.append(name.get_text(strip=True))
-    print("Jogo: ", teams[0], " x ", teams[1], "-", time)
+def receberTexto():
+    texto = "Cliente: " + input("Cliente: ")
+    palavrasProibidas = ["bocó","chato","catapimbas","pimba"]
+    for palavra in palavrasProibidas:
+        if palavra in texto:
+            print("Não vem não, me respeita!!")
+            return receberTexto()
+    return texto
