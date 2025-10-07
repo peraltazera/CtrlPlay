@@ -1,15 +1,6 @@
-def saudacoes(nome):
-    import random
-    frases = ["Bom dia! Meu nome é " + nome + ". Como você está ?", 
-             "Olá!",
-             "Oi, tudo bem ?"]
-    print(frases[random.randint(0,2)])
-
-def receberTexto():
-    texto = "Cliente: " + input("Cliente: ")
-    palavrasProibidas = ["bocó","chato","catapimbas","pimba"]
-    for palavra in palavrasProibidas:
-        if palavra in texto:
-            print("Não vem não, me respeita!!")
-            return receberTexto()
-    return texto
+Cliente: Vou bem
+Chatbot: Eu também. Você gosta de filmes?
+Cliente: Eu gosto muito!
+Chatbot: Qual?
+Cliente: Gosto demais!
+Chatbot: Legal!
