@@ -1,13 +1,17 @@
-extends KinematicBody
+extends Spatial
 
-var movimento= Vector3.ZERO
+onready var cenaInimigo = preload("res://Inimigo.tscn")
+var velocidade = 0
 
-func Inicio(tempo):
-	movimento = Vector3(tempo, 0, 0)
-	$Malha.rotation_degrees.y = 0.0 if sign(tempo) == 1 else 180.0
+func Inicio(movimentacao:float, tempo:float)->void:
+	velocidade = movimentacao
+	$Tempo.wait_time = tempo
 	
-func _physics_process(delta):
-	movimento = move_and_slide(movimento)
-	
-func _on_VisibilityNotifier_screen_exited():
-	queue_free()
+func _on_Tempo_timeout():
+	if get_parent().camera - 6 > self.translation.z:
+		queue_free()
+	else:
+		var inimigo = cenaInimigo.instance()
+		get_parent().add_child(inimigo)
+		inimigo.global_transform.origin = self.global_transform.origin
+		inimigo.Inicio(velocidade)
