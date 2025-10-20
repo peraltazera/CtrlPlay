@@ -26,4 +26,12 @@ div = soup.find("div", class_="js-home-matches-upcoming")
 
 links = div.find_all("a", class_=["wf-module-item", "mod-match", "mod-color"])
 
-print(links[2])
+for link in links:
+    teams = []
+    divNameTeam = link.find_all("div", class_="h-match-team")
+    #print(divNameTeam)
+    for nameTeam in divNameTeam:
+        name = nameTeam.find("div", class_="h-match-team-name")
+        teams.append(name.get_text(strip=True))
+    print(teams)
+        
