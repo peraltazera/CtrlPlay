@@ -1,15 +1,3 @@
- if(loading){
-        return(
-            <div className="min-h-20">
-                <p className="text-lg">Loading...</p>
-            </div>
-        )
-    }
-
-    if(error){
-        return(
-            <div className="min-h-20">
-                <p className="text-lg">{error}</p>
-            </div>
-        )
-    }
+onready var opcaoUm = $CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer/HBoxContainer/Ponteiro
+onready var opcaoDois = $CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer2/HBoxContainer/Ponteiro
+onready var opcaoTres = $CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3/HBoxContainer/Ponteiro
