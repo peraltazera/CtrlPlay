@@ -1,3 +1,40 @@
+extends MarginContainer
+
 onready var opcaoUm = $CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer/HBoxContainer/Ponteiro
 onready var opcaoDois = $CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer2/HBoxContainer/Ponteiro
 onready var opcaoTres = $CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3/HBoxContainer/Ponteiro
+
+var opcaoAtual = 0
+
+func _ready():
+	pass
+	
+func _process(delta):
+	if Input.is_action_just_pressed("ui_down") and opcaoAtual < 2:
+		opcaoAtual += 1
+		TrocaDeOpcao(opcaoAtual)
+	elif Input.is_action_just_pressed("ui_up") and opcaoAtual > 0:
+		opcaoAtual -= 1
+		TrocaDeOpcao(opcaoAtual)
+	elif Input.is_action_just_pressed("ui_accept"):
+		EscolherOpcao(opcaoAtual)
+
+func TrocaDeOpcao(opcaoAtual):
+	opcaoUm.text = ""
+	opcaoDois.text = ""
+	opcaoTres.text = ""
+	
+	if opcaoAtual == 0:
+		opcaoUm.text = ">"
+	elif opcaoAtual == 1:
+		opcaoDois.text = ">"
+	elif opcaoAtual == 2:
+		opcaoTres.text = ">"
+	
+func EscolherOpcao(opcaoAtual):
+	if opcaoAtual == 0:
+		get_tree().change_scene("res://Cenas/Game.tscn")
+	elif opcaoAtual == 1:
+		print("Creditos")
+	elif opcaoAtual == 2:
+		get_tree().quit()
