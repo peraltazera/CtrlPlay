@@ -1,37 +1,7 @@
-import requests
-from bs4 import BeautifulSoup
-
-try:
-    resultado = requests.get("https://www.vlr.gg/")
-except:
-    print("Erro")
-else:
-    soup = BeautifulSoup(resultado.text, "html.parser")
-
-#link = soup.find("a") 
-#print(link)
-
-#print("----------------------------------")
-
-#link2 = soup.find("a", class_="wf-module-item mod-match mod-color mod-bg-after-orange mod-first") 
-#print(link2)
-
-#links = soup.find_all("a")
-#print(links)
-
-#divs = soup.find_all("div")
-#print(divs[0])
-
-div = soup.find("div", class_="js-home-matches-upcoming")
-
-links = div.find_all("a", class_=["wf-module-item", "mod-match", "mod-color"])
-
-for link in links:
-    teams = []
-    divNameTeam = link.find_all("div", class_="h-match-team")
-    #print(divNameTeam)
-    for nameTeam in divNameTeam:
-        name = nameTeam.find("div", class_="h-match-team-name")
-        teams.append(name.get_text(strip=True))
-    print(teams)
-        
+ <div className="flex flex-col font-serif gap-4 bg-gradient-to-r from-teal-500 to-sky-500 h-screen p-10 text-neutral-800">
+      <div className="bg-white rounded-xl p-4 shadow-lg">
+        <h1 className="text-lg">Gerador de Frases</h1>
+        <hr className="h-px my-3"/>
+        <PhraseGenerator />
+      </div>
+    </div>
