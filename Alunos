@@ -1,6 +1,15 @@
-<div className="min-h-20 flex flex-col gap-4 items-start">
-        <Phrase text="Meu texto" author="Meu author"/>
-        <button className="bg-gradient-to-r from-teal-500 to-sky-500 p-2 rounded-lg shadow-md text-white">
-            Nova Frase
-        </button>
-   </div>
+ if(loading){
+        return(
+            <div className="min-h-20">
+                <p className="text-lg">Loading...</p>
+            </div>
+        )
+    }
+
+    if(error){
+        return(
+            <div className="min-h-20">
+                <p className="text-lg">{error}</p>
+            </div>
+        )
+    }
