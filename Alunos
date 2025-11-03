@@ -1,3 +1,14 @@
+import ChatBot as chat
+
+nome_chat = "Murilo"
+chat.saudacoes(nome_chat)
+#chat.ReceberTexto()
+chat.buscarResposta(nome_chat, "texto")
+
+
+--------------------------------------------------------------------------------------------------------------
+
+
 def saudacoes(nome):
     import random
     frases = ["Bom dia!",
@@ -18,4 +29,16 @@ def buscarResposta(nome, texto):
     with open("BancoDeDadosChatBot.txt", "a+") as conhecimento:
         conhecimento.seek(0)
         print(conhecimento.readline())
-            
+
+
+
+-------------------------------------------------------------------------------------------------------------
+
+
+Cliente: Vou bem
+Chatbot: Eu tambem. Você gosta de filmes?
+Cliente: Eu gosto muito!
+Chatbot: Qual?
+Cliente: Gosto demais!
+Chatbot: Legal!
+
