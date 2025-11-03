@@ -1,10 +1,9 @@
-import ChatBot as chat
+import ChatBot14 as chat
 
-nome_chat = "Murilo"
+nome_chat = "Victor"
 chat.saudacoes(nome_chat)
-#chat.ReceberTexto()
-chat.buscarResposta(nome_chat, "texto")
-
+texto = chat.ReceberTexto()
+chat.buscarResposta(nome_chat, texto)
 
 --------------------------------------------------------------------------------------------------------------
 
@@ -12,7 +11,7 @@ chat.buscarResposta(nome_chat, "texto")
 def saudacoes(nome):
     import random
     frases = ["Bom dia!",
-              "Bom dia, meu nome é" + nome + " como posso te ajudar?",
+              "Bom dia, meu nome é " + nome + " como posso te ajudar?",
              "Olá, tudo bem ?"]
     print(frases[random.randint(0,2)])
 
@@ -28,7 +27,13 @@ def ReceberTexto():
 def buscarResposta(nome, texto):
     with open("BancoDeDadosChatBot.txt", "a+") as conhecimento:
         conhecimento.seek(0)
-        print(conhecimento.readline())
+        while True:
+            leu = conhecimento.readline()
+            if leu != "":
+                if texto.replace("Cliente: ", "") == "Tchau":
+                    print("Volte sempre!")
+                    return "fim"
+                    
 
 
 
