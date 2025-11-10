@@ -1,49 +1,12 @@
-import ChatBot14 as chat
-
-nome_chat = "Victor"
-chat.saudacoes(nome_chat)
-texto = chat.ReceberTexto()
-chat.buscarResposta(nome_chat, texto)
-
---------------------------------------------------------------------------------------------------------------
-
-
-def saudacoes(nome):
-    import random
-    frases = ["Bom dia!",
-              "Bom dia, meu nome é " + nome + " como posso te ajudar?",
-             "Olá, tudo bem ?"]
-    print(frases[random.randint(0,2)])
-
-def ReceberTexto():
-    texto = "Cliente: " + input("Cliente: ")
-    palavrasProibidas = ["bocó","chato","pimba"]
-    for palavra in palavrasProibidas:
-        if palavra in texto:
-            print("Olha a boca!")
-            return ReceberTexto()
-    return texto
-
-def buscarResposta(nome, texto):
-    with open("BancoDeDadosChatBot.txt", "a+") as conhecimento:
-        conhecimento.seek(0)
-        while True:
-            leu = conhecimento.readline()
-            if leu != "":
-                if texto.replace("Cliente: ", "") == "Tchau":
-                    print("Volte sempre!")
-                    return "fim"
-                    
-
-
-
--------------------------------------------------------------------------------------------------------------
-
-
-Cliente: Vou bem
-Chatbot: Eu tambem. Você gosta de filmes?
-Cliente: Eu gosto muito!
-Chatbot: Qual?
-Cliente: Gosto demais!
-Chatbot: Legal!
-
+<html>
+    <head>
+        <title>
+            Meu site
+        </title>
+    </head>
+    <body>
+        <p>
+            Hello!!
+        </p>
+    </body>
+</html>
