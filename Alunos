@@ -1,12 +1,5 @@
-<html>
-    <head>
-        <title>
-            Meu site
-        </title>
-    </head>
-    <body>
-        <p>
-            Hello!!
-        </p>
-    </body>
-</html>
+plt.figure(figsize=(20,10))
+
+plt.grid(True)
+
+sns.boxplot(data=df_mercado, x='Categoria', y='Preço (R$)', hue='Categoria', palette='Set3', legend=False)
