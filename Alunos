@@ -1,5 +1,12 @@
-plt.figure(figsize=(20,10))
-
-plt.grid(True)
-
-sns.boxplot(data=df_mercado, x='Categoria', y='Preço (R$)', hue='Categoria', palette='Set3', legend=False)
+<div className="flex flex-col gap-4 p-5 text-orange-500">
+            <h1>Guilds</h1>
+             <ul>
+                {guilds.map((guild) => (
+                <li key={guild.id} className="cursor-pointer flex gap-4 items-center">
+                    {guild.name}
+                    <button onClick={() => navigate(guild.id)}>Editar</button>
+                </li>
+                ))}
+            </ul>
+            <GuildForm/>
+</div>
